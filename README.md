@@ -51,6 +51,8 @@ In this example i use project named "Documents" as the one of the already added 
 ```dockerfile
 Dockerfile
 
+...
+
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 
