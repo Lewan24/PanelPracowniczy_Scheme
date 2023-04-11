@@ -1,0 +1,26 @@
+﻿@namespace Components
+
+@using PP.Shared.Entities
+
+<MudContainer Class="pa-0 ma-0" Style="max-width: 300px;">
+    <MudCard Class="rounded-xl pa-4" Elevation="5">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h5">@ModuleModel.name</MudText>
+            </CardHeaderContent>
+            <CardHeaderAvatar>
+                <MudAvatar Color="@ModuleModel.color">@ModuleModel.name.Substring(0, 1)</MudAvatar>
+            </CardHeaderAvatar>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudText Typo="Typo.subtitle2">@ModuleModel.desc</MudText>
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton Variant="Variant.Filled" Color="Color.Info" Href="@ModuleModel.link" Disabled="@ModuleModel.isDisabled">Otworz modul</MudButton>
+        </MudCardActions>
+    </MudCard>
+</MudContainer>
+
+@code {
+    [Parameter] public Module ModuleModel { get; set; }
+}

@@ -1,0 +1,41 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider IsDarkMode="true" Theme="@_customTheme" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Elevation="1">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
+        <MudSpacer />
+        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/MudBlazor/MudBlazor" Target="_blank" />
+    </MudAppBar>
+    <MudDrawer @bind-Open="@open" Elevation="1" Variant="@DrawerVariant.Mini">
+        <NavMenu Open="@open"/>
+    </MudDrawer>
+    <MudMainContent>
+        <MudContainer Class="mt-8 d-flex flex-column justify-center">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    public bool open = false;
+
+    MudTheme _customTheme = new()
+    {
+        Typography = new Typography()
+        {
+            Default = new Default()
+            {
+                FontFamily = new [] {"Outfit", "Calibri", "sans-serif"}
+            }
+        }
+    };
+
+    void ToggleDrawer()
+    {
+        open = !open;
+    }
+}

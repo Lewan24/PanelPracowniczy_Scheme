@@ -1,0 +1,16 @@
+﻿@page "/testpage"
+
+@inject HttpClient _http
+
+<h3>TestPage</h3>
+
+<h4>@item.Name - @item.Age</h4>
+
+@code {
+    TestModel item = new("Puste", 0);
+
+    protected override async Task OnInitializedAsync()
+    {
+        item = await _http.GetFromJsonAsync<TestModel>("api/Test");
+    }
+}

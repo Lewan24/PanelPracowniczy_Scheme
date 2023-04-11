@@ -1,0 +1,43 @@
+﻿@page "/"
+
+@using Components
+
+<PageTitle>Panel Główny</PageTitle>
+
+<MudContainer Class="d-flex flex-row gap-8 flex-wrap mt-8 justify-center">
+    <MudContainer>
+        <MudText Typo="Typo.h4" Align="Align.Center">Panel Główny</MudText>
+        <MudText Typo="Typo.body1" Align="Align.Center">Wybierz interesujący Cię moduł</MudText>
+    </MudContainer>
+
+    @foreach (var module in _modules.Where(m => !m.isDisabled))
+    {
+        <ModuleScheme ModuleModel="@module"/>
+    }
+</MudContainer>
+
+<MudContainer Class="d-flex flex-row gap-8 flex-wrap mt-16 justify-center">
+    <MudContainer>
+        <MudText Typo="Typo.h4" Align="Align.Center">Nie aktywne moduły</MudText>
+    </MudContainer>
+
+    @foreach (var module in _modules.Where(m => m.isDisabled))
+    {
+        <ModuleScheme ModuleModel="@module"/>
+    }
+</MudContainer>
+
+@code
+{
+    private List<Module> _modules = new()
+    {
+        new("System Zamowien", "Modul systemu zamowien do zarzadzania zamowieniami", "/SystemZamowien", Color.Secondary, false),
+        new("Administracja", "Moduł administracyjny do zarzadzania uzytkownikami, zasobami czy ustawieniami aplikacji", "#", Color.Info, true),
+        new("Dokumenty", "Serwer plikow, głównie wykorzystywany do przechowywania i udostepniania dokumentow","#", Color.Secondary, false),
+        new("Serwis", "Aplikacja serwisowa do usterek", "#", Color.Success, false),
+        new("Usterki", "Moduł do zgłaszania usterek", "/Usterki", Color.Dark, false),
+        new("Rezerwacje", "Aplikacja do tworzenia rezerwacji i zarzadzania nimi", "#", Color.Warning, true),
+        new("Menu Dnia", "Aplikacja Gastronomiczna do tworzenia menu dnia", "#", Color.Secondary, true),
+        new("Zgłoś Problem", "Tutaj możesz zgłosić problem lub sugestie dot. aplikacji jak i modułów", "#", Color.Dark, false)
+    };
+}

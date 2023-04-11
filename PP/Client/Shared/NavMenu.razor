@@ -1,0 +1,55 @@
+﻿@inject NavigationManager _nav
+@inject HttpClient _http
+
+<MudNavMenu>
+    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
+    <MudNavLink Href="counter" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add">Counter</MudNavLink>
+    <MudNavLink Href="testpage" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Test httpclient</MudNavLink>
+
+    @if (!string.IsNullOrEmpty(firstWord))
+    {
+        if (ModulesMenus.Any(x => x.moduleName == firstWord))
+        {
+                    <MudDivider Class="my-8"/>
+
+            @if (Open)
+            {
+                            <MudText Align="Align.Center" Class="mb-4">@firstWord</MudText>
+            }
+
+            @foreach (var menulink in ModulesMenus.FirstOrDefault(m => m.moduleName == firstWord).links)
+            {
+                var test = $"{firstWord}/{menulink.link}";
+                            <MudNavLink Href="@test" Match="NavLinkMatch.Prefix" Icon="@menulink.icon">@menulink.link</MudNavLink>
+            }
+        }
+    }
+</MudNavMenu>
+
+@code {
+    [Parameter] public bool Open { get; set; }
+
+    string currentUrl;
+    string firstWord;
+    string baseUrl;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await Task.Delay(100);
+        currentUrl = _nav.Uri;
+
+        baseUrl = _http.BaseAddress.AbsoluteUri;
+        string textAfterBaseUrl = currentUrl.Replace(baseUrl, "");
+
+        string[] words = textAfterBaseUrl.Split('/');
+        firstWord = words[0];
+
+        StateHasChanged();
+    }
+
+    public List<ModuleMenu> ModulesMenus = new()
+    {
+        new ModuleMenu("SystemZamowien", new(){("nowezamowienie", Icons.Material.Filled.Create), ("panelglowny", Icons.Material.Filled.Home), ("archiwum", Icons.Material.Filled.Archive)}),
+        new ModuleMenu("Usterki", new(){("Glowna", Icons.Material.Filled.Home), ("Zglosusterke", Icons.Material.Filled.Add), ("Listausterek", Icons.Material.Filled.List), ("Administracja", Icons.Material.Filled.AdminPanelSettings)})
+    };
+}
