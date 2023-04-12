@@ -60,6 +60,7 @@ WORKDIR /src
 
 COPY ["FOLDER_WITH_NEW_PROJECT/PROJECT_NAME.csproj", "FOLDER_WITH_NEW_PROJECT/"]
 example: COPY ["Documents/Documents.csproj", "Documents/"]
+
 ...
 
 RUN dotnet restore "PP/Server/PP.Server.csproj"
@@ -67,3 +68,8 @@ RUN dotnet restore "PP/Server/PP.Server.csproj"
 
 There is one more way to make a dockerfile without editing itself. If you have one new project its not to much work, but if you add 10 projects or modules and want to add these to dockerfile, just click right mouse button on Server project -> Add -> Docker Support...
 And then select linux or windows and that's it.
+
+If you want the version of solution where there is the Identity, login/register system, external database etc go to:
+```bash
+https://github.com/Lewan24/PanelPracowniczy_Scheme_Identity
+```
